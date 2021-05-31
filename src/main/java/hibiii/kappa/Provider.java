@@ -1,12 +1,17 @@
 package hibiii.kappa;
 
+import java.math.BigInteger;
 import java.net.URL;
+import java.util.Random;
 
 import com.mojang.authlib.GameProfile;
+
+import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.texture.NativeImageBackedTexture;
+import net.minecraft.client.util.Session;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 
@@ -27,6 +32,19 @@ public final class Provider {
 			}
 		};
 		Util.getMainWorkerExecutor().execute(runnable);
+	}
+
+	public static String getChangeUrl(Session session) {
+		BigInteger intA = new BigInteger(128, new Random());
+		BigInteger intB = new BigInteger(128, new Random(System.identityHashCode(new Object())));
+		String fakeId = intA.xor(intB).toString(16);
+		try {
+			MinecraftClient.getInstance().getSessionService().joinServer(session.getProfile(), session.getAccessToken(),
+					fakeId);
+		} catch (Exception e) {
+			return null;
+		}
+		return "https://optifine.net/capeChange?n=" + session.getUsername() + "&u=" + session.getUuid() + "&s=" + fakeId;
 	}
 
 	public static interface CapeTextureAvailableCallback {
