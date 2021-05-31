@@ -38,9 +38,15 @@ public final class Provider {
 	// There are edge cages with sizes 184x88, 1024x512 and 2048x1024,
 	// but these should work alright.
 	private static NativeImage uncrop(NativeImage in) {
+		int srcHeight = in.getHeight(), srcWidth = in.getWidth();
 		int zoom = (int) Math.ceil(in.getHeight() / 32f);
 		NativeImage out = new NativeImage(64 * zoom, 32 * zoom, true);
-		out.copyFrom(in);
+		// NativeImage.copyFrom doesn't work! :(
+		for (int x = 0; x < srcWidth; x++) {
+			for (int y = 0; y < srcHeight; y++) {
+				out.setPixelColor(x, y, in.getPixelColor(x, y));
+			}
+        }
 		return out;
 	}
 
