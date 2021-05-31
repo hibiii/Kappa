@@ -17,11 +17,6 @@
   "icon": "assets/kappa/icon.png",
 
   "environment": "client",
-  "entrypoints": {
-    "client": [
-      "hibiii.kappa.ClientInitializer"
-    ]
-  },
   "mixins": [
     "kappa.mixins.json"
   ],
