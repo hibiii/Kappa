@@ -8,6 +8,7 @@ import java.util.Map;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -19,22 +20,24 @@ import hibiii.kappa.Provider;
 @Mixin(PlayerListEntry.class)
 public final class PlayerListEntryMixin {
 
-	@Shadow 
-	private final GameProfile profile = null;
+	@Shadow @Final
+	private GameProfile profile;
+	@Shadow @Final
+	private Map<MinecraftProfileTexture.Type, Identifier> textures;
 	@Shadow
-	private final Map<MinecraftProfileTexture.Type, Identifier> textures = null;
+	private boolean texturesLoaded;
 
 	@Inject(
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/client/MinecraftClient;getInstance()Lnet/minecraft/client/MinecraftClient;"),
+		at = @At("HEAD"),
 		method = "loadTextures()V")
 	protected void ltHInject(CallbackInfo info) {
-		Provider.loadCape(profile, id -> {
-			if(this.textures.get(MinecraftProfileTexture.Type.CAPE) == null) {
-				this.textures.put(MinecraftProfileTexture.Type.CAPE, id);
-				this.textures.put(MinecraftProfileTexture.Type.ELYTRA, id);
-			}
-		});
+		if(!texturesLoaded) {
+			Provider.loadCape(this.profile, id -> {
+				if(this.textures.get(MinecraftProfileTexture.Type.CAPE) == null) {
+					this.textures.put(MinecraftProfileTexture.Type.CAPE, id);
+					this.textures.put(MinecraftProfileTexture.Type.ELYTRA, id);
+				}
+			});
+		}
 	}
 }
