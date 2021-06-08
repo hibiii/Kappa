@@ -4,13 +4,12 @@
   "version": "${version}",
 
   "name": "Kappa",
-  "description": "Adds OptiFine capes...",
+  "description": "This mod adds OptiFine capes (correctly), and is aimed for use in snapshots. It's also meant to be very light and to modify very little so it doesn't upset server moderators, or so it doesn't get broken very easily (which upsets me!).",
   "authors": [
     "Hibi"
   ],
   "contact": {
-    "sources": "https://github.com/Hibiii/NewKappa",
-    "discord": "https://dsc.bio/hibi"
+    "sources": "https://github.com/Hibiii/Kappa"
   },
 
   "license": "Unlicense",
@@ -23,7 +22,7 @@
 
   "depends": {
     "fabricloader": ">=0.11.3",
-    "minecraft": "1.17.x",
+    "minecraft": ">=1.17-pre1",
     "java": ">=16"
   },
   "conflicts": {
@@ -31,7 +30,13 @@
     "capes": "*",
     "minecraftcapes": "*"
   },
-  "suggests": {
-    "fabric": "*"
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.github_releases": "https://github.com/Hibiii/Kappa/releases/",
+        "kappa.discord.hibi": "https://dsc.bio/hibi",
+        "kappa.minecraft_cug": "https://account.mojang.com/terms?ref=ft#commercial"
+      }
+    }
   }
 }
