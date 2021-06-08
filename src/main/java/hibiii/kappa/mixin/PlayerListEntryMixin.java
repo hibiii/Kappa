@@ -27,17 +27,17 @@ public final class PlayerListEntryMixin {
 	@Shadow
 	private boolean texturesLoaded;
 
+	// Note that loadTextures()V might be called like a foxton,
+	// so rejecting to run it has to be really fast
 	@Inject(
 		at = @At("HEAD"),
 		method = "loadTextures()V")
 	protected void ltHInject(CallbackInfo info) {
-		if(!texturesLoaded) {
-			Provider.loadCape(this.profile, id -> {
-				if(this.textures.get(MinecraftProfileTexture.Type.CAPE) == null) {
-					this.textures.put(MinecraftProfileTexture.Type.CAPE, id);
-					this.textures.put(MinecraftProfileTexture.Type.ELYTRA, id);
-				}
-			});
-		}
+		if(texturesLoaded) return;
+		Provider.loadCape(this.profile, id -> {
+			if(this.textures.get(MinecraftProfileTexture.Type.CAPE) == null) {
+				this.textures.put(MinecraftProfileTexture.Type.CAPE, id);
+			}
+		});
 	}
 }

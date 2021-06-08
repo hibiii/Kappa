@@ -2,11 +2,11 @@ package hibiii.kappa;
 
 import java.math.BigInteger;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import com.mojang.authlib.GameProfile;
-
-import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.texture.NativeImage;
@@ -17,6 +17,11 @@ import net.minecraft.util.Util;
 
 public final class Provider {
 	
+	// This is where capes will be stored
+	public static Map<String, Identifier> capes = new HashMap<String, Identifier>();
+
+	// This loads the cape for one player, doesn't matter if it's the player or not.
+	// Requires a callback, that receives the id for the cape
 	public static void loadCape(GameProfile player, CapeTextureAvailableCallback callback) {
 		Runnable runnable = () -> {
 			try {
@@ -24,16 +29,16 @@ public final class Provider {
 				NativeImage tex = uncrop(NativeImage.read(url.openStream()));
 				NativeImageBackedTexture nIBT = new NativeImageBackedTexture(tex);
 				Identifier id = MinecraftClient.getInstance().getTextureManager().registerDynamicTexture("kappa" + player.getName().toLowerCase(), nIBT);
-				Capes.store.put(player.getName(), id);
+				capes.put(player.getName(), id);
 				callback.onTexAvail(id);
 			}
 			catch (Exception e) {
-				e.printStackTrace();
 			}
 		};
 		Util.getMainWorkerExecutor().execute(runnable);
 	}
 
+	// Gets the URL to change your cape
 	public static String getChangeUrl(Session session) {
 		BigInteger intA = new BigInteger(128, new Random());
 		BigInteger intB = new BigInteger(128, new Random(System.identityHashCode(new Object())));

@@ -21,6 +21,8 @@ public abstract class SkinOptionsScreenMixin extends GameOptionsScreen {
 		super(parent, gameOptions, title);
 	}
 
+	// This is supposed to be a quick and simple mod for snapshots, FAPI may not be available,
+	// and there should be little harm in using a hardcoded string in english.
 	private final Text changeBtnText = Text.of("Open Cape Editor");
 	
 	@Inject(
@@ -38,6 +40,7 @@ public abstract class SkinOptionsScreenMixin extends GameOptionsScreen {
 					return;
 				}
 				Util.getOperatingSystem().open(url);
-			}));
+			}
+		));
 	}
 }
