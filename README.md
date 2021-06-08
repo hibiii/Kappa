@@ -19,7 +19,7 @@ Yes, OptiFine's cape breaks Minecraft's commercial usage guidelines, but I alrea
 
 ---
 
-Source: https://github.com/Hibiii/NewKappa
+Source: https://github.com/Hibiii/Kappa
 
 [1]: https://www.curseforge.com/minecraft/mc-mods/of-capes
 [2]: https://www.curseforge.com/minecraft/mc-mods/capes
