@@ -22,8 +22,7 @@
 
   "depends": {
     "fabricloader": ">=0.11.3",
-    "minecraft": ">=1.17-pre1",
-    "java": ">=16"
+    "minecraft": "<=1.16.5"
   },
   "conflicts": {
     "fabric-of-capes": "*",

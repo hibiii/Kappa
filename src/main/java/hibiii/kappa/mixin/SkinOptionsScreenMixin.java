@@ -11,15 +11,14 @@ import net.minecraft.client.gui.screen.option.GameOptionsScreen;
 import net.minecraft.client.gui.screen.option.SkinOptionsScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.option.GameOptions;
-import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Util;
 
 @Mixin(SkinOptionsScreen.class)
 public abstract class SkinOptionsScreenMixin extends GameOptionsScreen {
 
-	public SkinOptionsScreenMixin(Screen parent, GameOptions gameOptions, Text title) {
-		super(parent, gameOptions, title);
+	public SkinOptionsScreenMixin(Screen parent, GameOptions gameOptions) {
+		super(parent, gameOptions, null);
 	}
 
 	// This is supposed to be a quick and simple mod for snapshots, FAPI may not be available,
@@ -30,7 +29,7 @@ public abstract class SkinOptionsScreenMixin extends GameOptionsScreen {
 		at = @At("TAIL"),
 		method = "init()V")
 	public void iTInject(CallbackInfo info) {
-		this.addDrawableChild(new ButtonWidget(
+		this.<ButtonWidget>addButton(new ButtonWidget(
 			this.width - 155, this.height - 25,
 			             150,               20,
 			changeBtnText,
