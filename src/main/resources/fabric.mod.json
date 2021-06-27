@@ -34,8 +34,9 @@
     "modmenu": {
       "links": {
         "modmenu.github_releases": "https://github.com/Hibiii/Kappa/releases/",
+        "modmenu.discord": "https://discord.gg/Zef3c27dN2",
         "kappa.discord.hibi": "https://dsc.bio/hibi",
-        "kappa.minecraft_cug": "https://account.mojang.com/terms?ref=ft#commercial"
+        "kappa.minecraft_cug": "https://account.mojang.com/terms#commercial"
       }
     }
   }
