@@ -67,7 +67,7 @@ public final class Provider {
 		// NativeImage.copyFrom doesn't work! :(
 		for (int x = 0; x < srcWidth; x++) {
 			for (int y = 0; y < srcHeight; y++) {
-				out.setPixelColor(x, y, in.getPixelColor(x, y));
+				out.setColor(x, y, in.getColor(x, y));
 			}
         }
 		return out;
