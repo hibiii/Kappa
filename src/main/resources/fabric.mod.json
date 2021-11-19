@@ -27,8 +27,13 @@
   },
   "conflicts": {
     "fabric-of-capes": "*",
-    "capes": "*",
-    "minecraftcapes": "*"
+    "minecraftcapes": "*",
+    "ears": ">1.4.1",
+    "anycapes": "*",
+    "wildfire_gender": "*"
+  },
+  "breaks": {
+    "opticape": "*"
   },
   "custom": {
     "modmenu": {
