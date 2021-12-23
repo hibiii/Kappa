@@ -31,7 +31,7 @@ public final class Provider {
 				URL url = new URL("http://s.optifine.net/capes/" + player.getName() + ".png");
 				NativeImage tex = uncrop(NativeImage.read(url.openStream()));
 				NativeImageBackedTexture nIBT = new NativeImageBackedTexture(tex);
-				Identifier id = MinecraftClient.getInstance().getTextureManager().registerDynamicTexture("kappa" + player.getName().toLowerCase(), nIBT);
+				Identifier id = MinecraftClient.getInstance().getTextureManager().registerDynamicTexture("kappa" + player.getId().toString().replace("-", ""), nIBT);
 				capes.put(player.getName(), id);
 				callback.onTexAvail(id);
 			}
