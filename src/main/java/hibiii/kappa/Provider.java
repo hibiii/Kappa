@@ -25,7 +25,7 @@ public final class Provider {
 	public static void loadCape(GameProfile player, CapeTextureAvailableCallback callback) {
 		Runnable runnable = () -> {
 			try {
-				URL url = new URL("http://s.optifine.net/capes/" + player.getName() + ".png");
+				URL url = new URL("https://optifine.net/capes/" + player.getName() + ".png");
 				NativeImage tex = uncrop(NativeImage.read(url.openStream()));
 				NativeImageBackedTexture nIBT = new NativeImageBackedTexture(tex);
 				Identifier id = MinecraftClient.getInstance().getTextureManager().registerDynamicTexture("kappa" + player.getName().toLowerCase(), nIBT);
