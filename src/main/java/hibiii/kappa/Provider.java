@@ -1,5 +1,6 @@
 package hibiii.kappa;
 
+import java.io.FileNotFoundException;
 import java.math.BigInteger;
 import java.net.URL;
 import java.util.HashMap;
@@ -27,15 +28,8 @@ public final class Provider {
 				callback.onTexAvail(existingCape);
 				return;
 			}
-			try {
-				URL url = new URL("https://optifine.net/capes/" + player.getName() + ".png");
-				NativeImage tex = uncrop(NativeImage.read(url.openStream()));
-				NativeImageBackedTexture nIBT = new NativeImageBackedTexture(tex);
-				Identifier id = MinecraftClient.getInstance().getTextureManager().registerDynamicTexture("kappa" + player.getId().toString().replace("-", ""), nIBT);
-				capes.put(player.getName(), id);
-				callback.onTexAvail(id);
-			}
-			catch (Exception e) {
+			if(!Provider.tryUrl(player, callback, "https://optifine.net/capes/" + player.getName() + ".png")) {
+				Provider.tryUrl(player, callback, "http://s.optifine.net/capes/" + player.getName() + ".png");
 			}
 		};
 		Util.getMainWorkerExecutor().execute(runnable);
@@ -78,6 +72,27 @@ public final class Provider {
 
 	// This is where capes will be stored
 	private static Map<String, Identifier> capes = new HashMap<String, Identifier>();
+
+	// Try to load a cape from an URL.
+	// If this fails, it'll return false, and let us try another url.
+	private static boolean tryUrl(GameProfile player, CapeTextureAvailableCallback callback, String urlFrom) {
+		try {
+			URL url = new URL(urlFrom);
+			NativeImage tex = uncrop(NativeImage.read(url.openStream()));
+			NativeImageBackedTexture nIBT = new NativeImageBackedTexture(tex);
+			Identifier id = MinecraftClient.getInstance().getTextureManager().registerDynamicTexture("kappa" + player.getId().toString().replace("-", ""), nIBT);
+			capes.put(player.getName(), id);
+			callback.onTexAvail(id);
+		}
+		catch(FileNotFoundException e) {
+			// Getting the cape was successful! But there's no cape, so don't retry.
+			return true;
+		}
+		catch(Exception e) {
+			return false;
+		}
+		return true;
+	}
 
 	private Provider() { }
 }
