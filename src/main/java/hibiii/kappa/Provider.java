@@ -16,14 +16,17 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 
 public final class Provider {
-	
-	// This is where capes will be stored
-	public static Map<String, Identifier> capes = new HashMap<String, Identifier>();
 
 	// This loads the cape for one player, doesn't matter if it's the player or not.
 	// Requires a callback, that receives the id for the cape
 	public static void loadCape(GameProfile player, CapeTextureAvailableCallback callback) {
 		Runnable runnable = () -> {
+			// Check if the player doesn't already have a cape.
+			Identifier existingCape = capes.get(player.getName());
+			if(existingCape != null) {
+				callback.onTexAvail(existingCape);
+				return;
+			}
 			try {
 				URL url = new URL("http://s.optifine.net/capes/" + player.getName() + ".png");
 				NativeImage tex = uncrop(NativeImage.read(url.openStream()));
@@ -57,7 +60,7 @@ public final class Provider {
 	}
 
 	// This is a provider specific implementation.
-	// Images are usually 46x22 or 92x44, and these work as expected (32, 64).
+	// Images are usually 46x22 or 92x44, and these work as expected (64x32, 128x64).
 	// There are edge cages with sizes 184x88, 1024x512 and 2048x1024,
 	// but these should work alright.
 	private static NativeImage uncrop(NativeImage in) {
@@ -72,6 +75,9 @@ public final class Provider {
         }
 		return out;
 	}
+
+	// This is where capes will be stored
+	private static Map<String, Identifier> capes = new HashMap<String, Identifier>();
 
 	private Provider() { }
 }
