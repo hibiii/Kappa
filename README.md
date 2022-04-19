@@ -22,9 +22,11 @@ Effectively what Kappa does is inject OptiFine capes into the game: any mods tha
 
 Yes, OptiFine's cape breaks Minecraft's commercial usage guidelines, but I already had it for lots longer. I consider it part of my skin.
 
+**On Quilt support:** This mod sits in a gray area, as thus is probably safe to avoid if you're using Quilt. However, Kappa uses as little Fabric specific components as possible.
+
 ---
 
-Source: https://github.com/Hibiii/Kappa
+Source: https://github.com/Hibiii/Kappa \
 Discord: https://discord.gg/Zef3c27dN2
 
 [1]: https://optifine.net/donate
