@@ -23,15 +23,13 @@ public abstract class SkinOptionsScreenMixin extends GameOptionsScreen {
 
 	// This is supposed to be a quick and simple mod for snapshots, FAPI may not be available,
 	// and there should be little harm in using a hardcoded string in english.
-	private final Text changeBtnText = Text.method_43471("Open Cape Editor");
+	private final Text changeBtnText = Text.translatable("Open Cape Editor");
 	
 	@Inject(
 		at = @At("TAIL"),
 		method = "init()V")
 	public void iTInject(CallbackInfo info) {
-		this.addDrawableChild(new ButtonWidget(
-			this.width - 155, this.height - 25,
-			             150,               20,
+		this.addDrawableChild(ButtonWidget.method_46430(
 			changeBtnText,
 			(btn) -> {
 				String url = Provider.getChangeUrl(this.client.getSession());
@@ -41,6 +39,9 @@ public abstract class SkinOptionsScreenMixin extends GameOptionsScreen {
 				}
 				Util.getOperatingSystem().open(url);
 			}
-		));
+		).method_46434(
+			this.width - 155, this.height - 25,
+			             150,               20
+		).method_46431());
 	}
 }

@@ -23,14 +23,13 @@
   ],
 
   "depends": {
-    "minecraft": ">=1.19-alpha.22.16.a",
+    "minecraft": ">=1.19.3-alpha.22.43.a",
     "java": ">=17"
   },
   "custom": {
     "modmenu": {
       "links": {
         "modmenu.github_releases": "https://github.com/Hibiii/Kappa/releases/",
-        "modmenu.discord": "https://discord.gg/Zef3c27dN2",
         "kappa.discord.hibi": "https://discord.com/users/593318273207238656",
         "kappa.minecraft_cug": "https://www.minecraft.net/en-us/terms#terms-commercial_guidelines"
       }
